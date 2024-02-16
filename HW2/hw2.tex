@@ -1,0 +1,158 @@
+\documentclass{article}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+% ===== PACKAGES =====
+\usepackage{amsmath,amssymb}
+\usepackage{color}
+\usepackage{subfigure}
+\usepackage{mdframed}
+\usepackage{changepage}
+\newmdenv[
+  topline=false,
+  bottomline=false,
+  skipabove=\topsep,
+  skipbelow=\topsep
+]{siderules}
+\renewcommand{\abstractname}{}
+
+% ===== Jed's Defined Stuff ======
+\DeclareMathOperator*{\argmin}{arg\!\min}
+\DeclareMathOperator*{\argmax}{arg\!\max}
+\usepackage{siunitx}
+\usepackage{enumitem} % used to make alphabetical lists instead of numbered ones
+
+% ===== VARIABLES =====
+\def \R{\mathbb{R}}
+\def \Pr{\mathbb{P}}
+\def \D{{\rm D}}
+\def \N{{\rm N}}
+\def \xx{{\boldsymbol{\rm x}}}
+\def \y{{\rm y}}
+
+% ===== HEADER BOX =====
+\newcommand{\lecture}[2]{
+\pagestyle{myheadings}
+\thispagestyle{plain}
+\newpage
+\noindent
+\begin{center}
+\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal line
+\rule{\textwidth}{0.4pt}\\[1\baselineskip] % Thin horizontal line
+\vbox{\vspace{2mm}
+\hbox to 6.28in { {\bf CS 760: Machine Learning} \hfill Spring 2024 }
+\vspace{4mm}
+\hbox to 6.28in { {\Large \hfill #1  \hfill} }
+\vspace{4mm}
+\hbox to 6.28in { {\scshape Authors:}  #2 \hfill }}
+\vspace{-2mm}
+\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal line
+\rule{\textwidth}{1.6pt}\\[\baselineskip] % Thick horizontal line
+\end{center}
+\vspace*{4mm}
+}
+
+
+
+% =============== DOCUMENT ===============
+\begin{document}
+\lecture{Homework 2: Linear Regression}{Jed Pulley}
+
+\begin{center}
+{\Large {\sf \underline{\textbf{DO NOT POLLUTE!}} AVOID PRINTING, OR PRINT 2-SIDED MULTIPAGE.}}
+\end{center}
+
+\section*{Problem 2.1}
+
+To minimize the MSE of $\theta$, we computer our estimator $\hat{\theta}$:
+
+\[\hat{\theta} = \underset{\theta}{\arg\min} \Vert \bf{\sf{y}}  - \bf{X}  \theta \Vert ^2_2 \]
+
+Expanding that out, we find:
+
+\begin{align*}
+  \Vert \bf{\sf{y}}  - \bf{X}  \theta \Vert ^2_2 
+  & = (\bf{\sf{y}} - \bf{X}  {\theta})^{\sf{T}}(\bf{\sf{y}} - \bf{X}  {\theta}) \\
+  & = \bf{\sf{y}}^{\sf{T}}\bf{\sf{y}} - \bf{\sf{y}}^{\sf{T}}\bf{X}{\theta} - {\theta}^{\sf{T}}\bf{X}^{\sf{T}}\bf{\sf{y}} + {\theta}^{\sf{T}}\bf{X}^{\sf{T}}\bf{X}{\theta} \\
+  & = \bf{\sf{y}}^{\sf{T}}\bf{\sf{y}} - 2{\theta}^{\sf{T}}\bf{X}^{\sf{T}}\bf{\sf{y}} + {\theta}^{\sf{T}}\bf{X}^{\sf{T}}\bf{X}{\theta}
+\end{align*}
+
+From there, we take the derivative w.r.t. $\theta$:
+
+\begin{align*}
+  \frac{d}{d\theta} = 2\bf{X}^{\sf{T}}\bf{X}{\theta} - 2\bf{X}^{\sf{T}}\bf{\sf{y}}
+\end{align*}
+
+After setting this derivative to zero and solving for $\theta$, we find that our solution is:
+
+\[\hat{\theta} = (\bf{X}^{\sf{T}}\bf{X})^{-1}\bf{X}^{\sf{T}}\bf{\sf{y}}\]
+
+\section*{Problem 2.2}
+
+Since know that $\epsilon$ is distributed normally, we can use the normal distribution formula to derive our expression for the MLE of $\theta^{*}$:
+
+\begin{align*}
+  \mathbb{P}(\sf{y}, \bf{X} | \theta,\Sigma^{*}) = \frac{1}{{\Sigma^{*} \sqrt {2\pi } }}e^{-\frac{1}{2\Sigma^*}(\sf{y} - \theta \bf{X})^T(\sf{y} - \theta \bf{X})}
+\end{align*}
+
+Maximizing for $\theta$, we find that the MLE is notably the same as the minimizer of the MSE from Problem 2.1 above.
+
+\begin{align*}
+  \hat{\theta} = \underset{\theta}{\arg\min} \Vert \bf{\sf{y}}  - \bf{X}  \theta \Vert ^2_2 \\
+  \hat{\theta} = (\bf{X}^{\sf{T}}\bf{X})^{-1}\bf{X}^{\sf{T}}\bf{\sf{y}}
+\end{align*}
+
+
+
+\section*{Problem 2.3}
+
+\section*{Problem 2.4}
+
+\section*{Problem 2.5}
+
+\section*{Problem 2.6}
+
+\section*{Problem 2.7}
+\begin{enumerate}[label=(\alph*)]
+  \item 
+\end{enumerate}
+
+\end{document} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
