@@ -98,7 +98,7 @@ After setting this derivative to zero and solving for $\theta$, we find that our
 Since know that $\epsilon$ is distributed normally, we can use the normal distribution formula to derive our expression for the MLE of $\theta^{*}$:
 
 \begin{align*}
-  \mathbb{P}(\sf{y}, \bf{X} | \theta,\Sigma^{*}) = \frac{1}{{\Sigma^{*} \sqrt {2\pi } }}e^{-\frac{1}{2\Sigma^*}(\sf{y} - \theta \bf{X})^T(\sf{y} - \theta \bf{X})}
+  \mathbb{P}(\sf{y}, \bf{X} | \theta,\Sigma^{*}) = \frac{1}{{\sqrt {2\pi \Sigma^{*} } }}e^{-\frac{1}{2\Sigma^*}(\sf{y} - \theta \bf{X})^T(\sf{y} - \theta \bf{X})}
 \end{align*}
 
 Maximizing for $\theta$, we find that the MLE is notably the same as the minimizer of the MSE from Problem 2.1 above.
