@@ -95,20 +95,19 @@ After setting this derivative to zero and solving for $\theta$, we find that our
 
 \section*{Problem 2.2}
 
-Since know that $\epsilon$ is distributed normally, we can use the normal distribution formula to derive our expression for the MLE of $\theta^{*}$:
+Since know that $\epsilon$ is distributed normally, we can use the general multivariate normal distribution formula to derive our expression for the MLE of $\theta^{*}$:
 
 \begin{align*}
-  \mathbb{P}(\sf{y}, \bf{X} | \theta,\Sigma^{*}) = \frac{1}{{\sqrt {2\pi \Sigma^{*} } }}e^{-\frac{1}{2\Sigma^*}(\sf{y} - \theta \bf{X})^T(\sf{y} - \theta \bf{X})}
+  \mathbb{P}(\sf{y}, \bf{X} | \theta,\Sigma^{*}) = \frac{1}{{2\pi^{\frac{n}{2}} | \Sigma^{*} | }}e^{-\frac{1}{2}(\sf{y} - \bf{X} \theta)^T\Sigma^{*-1}(\sf{y} - \bf{X} \theta)}
 \end{align*}
 
-Maximizing for $\theta$, we find that the MLE is notably the same as the minimizer of the MSE from Problem 2.1 above.
+To find the MLE, we first take the natural log, then we take the derivative and set it to zero. After that, we solve for $\hat{\theta}$:
 
 \begin{align*}
-  \hat{\theta} = \underset{\theta}{\arg\min} \Vert \bf{\sf{y}}  - \bf{X}  \theta \Vert ^2_2 \\
-  \hat{\theta} = (\bf{X}^{\sf{T}}\bf{X})^{-1}\bf{X}^{\sf{T}}\bf{\sf{y}}
+  \hat{\theta} = (\bf{X}^{\sf{T}}\Sigma^{*-1}\bf{X})^{-1}\bf{X}^{\sf{T}}\Sigma^{*-1}\bf{\sf{y}}
 \end{align*}
 
-
+This is very similar to the solution of Problem 2.1 above, but it's weighted by the inverse covariance matrix $\Sigma^*$
 
 \section*{Problem 2.3}
 
