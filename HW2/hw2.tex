@@ -107,7 +107,7 @@ To find the MLE, we first take the natural log, then we take the derivative and 
   \hat{\theta} = (\bf{X}^{\sf{T}}\Sigma^{*-1}\bf{X})^{-1}\bf{X}^{\sf{T}}\Sigma^{*-1}\bf{\sf{y}}
 \end{align*}
 
-This is very similar to the solution of Problem 2.1 above, but it's weighted by the inverse covariance matrix $\Sigma^*$
+This is very similar to the solution of Problem 2.1 above, with the exception that it's now being weighted by the inverse covariance matrix $\Sigma^{*-1}$
 
 \section*{Problem 2.3}
 
@@ -121,7 +121,11 @@ Therefore, the distribution of $\theta^*$ can be shows as:
 
 \section*{Problem 2.4}
 
+Given a new feature vector x, our new response is: $\hat{y} = x^T\hat{\theta}$. Letting $H = (\bf{X}^{\sf{T}}\Sigma^{*-1}\bf{X})^{-1}\bf{X}^{\sf{T}}\Sigma^{*-1}$, given the above equation for $\hat{\theta}$, we can show that the MLE of our new response is $\hat{y} = x^T\theta^* + x^TH\epsilon$
+
 \section*{Problem 2.5}
+
+$\hat{y} \sim \mathcal{N}(x^T\theta^*, x^TH\Sigma^*H^Tx) $
 
 \section*{Problem 2.6}
 
