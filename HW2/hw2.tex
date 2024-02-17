@@ -111,6 +111,14 @@ This is very similar to the solution of Problem 2.1 above, but it's weighted by 
 
 \section*{Problem 2.3}
 
+Thanks to the central limit theorem, we can assume that $\theta^*$ is distributed normally under large sample sizes. The mean of this distribution is found to be $\theta^*$, but our covariance matrix is a little trickier to find. We need to first compute the Fisher Information matrix, given by:
+
+\[I(\theta^*) = - \mathbb{E}[\frac{\partial^2}{\partial \theta^2} ln ( \mathbb{P}(\sf{y}, \bf{X} | \theta,\Sigma^{*})) ] \]
+
+Therefore, the distribution of $\theta^*$ can be shows as:
+
+\[\theta^* \sim \mathcal{N}(\theta^*, I(\theta^*)^{-1})\]
+
 \section*{Problem 2.4}
 
 \section*{Problem 2.5}
