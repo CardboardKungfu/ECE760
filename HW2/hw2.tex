@@ -111,33 +111,33 @@ This is very similar to the solution of Problem 2.1 above, with the exception th
 
 \section*{Problem 2.3}
 
-Thanks to the central limit theorem, we can assume that $\theta^*$ is distributed normally under large sample sizes. The mean of this distribution is found to be $\theta^*$, but our covariance matrix is a little trickier to find. Since we don't know exactly the structure of $\Sigma^*$, we can estimate it using the Fisher Information matrix, which is given below:
+The distribution of the MLE of $\theta^*$ is:
 
-\[I(\theta^*) = - \mathbb{E}[\frac{\partial^2}{\partial \theta^2} ln ( \mathbb{P}(\sf{y}, \bf{X} | \theta,\Sigma^{*})) ] \]
-
-Therefore, the distribution of $\theta^*$ can be shows as:
-
-\[\theta^* \sim \mathcal{N}(\theta^*, I(\theta^*)^{-1})\]
+\[\hat{\theta} \sim \mathcal{N}(\theta^*, (X^T\Sigma^{*-1}X)^{-1})\]
 
 \section*{Problem 2.4}
 
-Given a new feature vector x, our new response is: $\hat{y} = x^T\hat{\theta}$. Letting $H = (\bf{X}^{\sf{T}}\Sigma^{*-1}\bf{X})^{-1}\bf{X}^{\sf{T}}\Sigma^{*-1}$, given the above equation for $\hat{\theta}$, we can show that the MLE of our new response is $\hat{y} = x^T\theta^* + x^TH\epsilon$
+With x being a new sample and $\hat{\theta}$ being the MLE of $\theta^*$, we can say that based on what we derived above, the MLE of $\hat{y}$ is exactly $x^T\hat{\theta}$
 
 \section*{Problem 2.5}
-Using H that we defined above, we can show the distribution of $\hat{y}$ below:
 
-$\hat{y} \sim \mathcal{N}(x^T\theta^*, x^TH\Sigma^*H^Tx)$
+Borrowing from 2.3 and knowing that $\hat{y} = x^T\hat{\theta}$, we say that:
+
+\[\hat{y} \sim \mathcal{N}(x^T\theta^*, x^T (X^T\Sigma^{*-1}X)^{-1}x)\]
 
 \section*{Problem 2.6}
 
 We'll take a similiar approach as in Problem 2.2, so first we take the natural log, take the derivative w.r.t. $\Sigma^*$, set it to zero, and then solve for $\Sigma^*$. Doing so, we get:
 
-\[\Sigma^* = -X(\sf{y}-X\theta)\]
+\[\Sigma^* = (\sf{y}-X\theta)(\sf{y}-X\theta)^T\]
 
 \section*{Problem 2.7}
 \begin{enumerate}[label=(\alph*)]
   \item 
 \end{enumerate}
+
+
+\[ln(\frac{1}{(2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}}) = ln((2\pi)^{-\frac{n}{2}}|\Sigma|^{-\frac{1}{2}})\]
 
 \end{document} 
 
