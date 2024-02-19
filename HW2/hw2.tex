@@ -133,11 +133,12 @@ We'll take a similiar approach as in Problem 2.2, so first we take the natural l
 
 \section*{Problem 2.7}
 \begin{enumerate}[label=(\alph*)]
-  \item 
+  \item Here we run into an issue, because both $\Sigma^*$ and $\theta^*$ are defined in terms of each other. To get around this issue, we use Expectation Maximization to iteratively approach the solution for either terms. Doing this yields an MLE for $\Sigma^* = 1025.0$ and $\theta^* = 155$
+  \item Following the same logic as Problem 2.4, the MLE of $\hat{y}$ is $x^T\hat{\theta}$
+  \item To derive a confidence interval of 95\%, we first need to find tau: \[ \tau = \Phi^{-1}_\mathcal{N}(\frac{\alpha}{2} | 0, \sigma^2\sf{x}^T(X^TX)^{-1}\sf{x})\] such that \[\mathbb{P}(|\hat{y} - \sf{y}^*| \leq \tau) = 1 - \alpha\] Here we set $\alpha = 0.05$ to give us a 95\% confidence interval $(\hat{y} - \tau, \hat{y} + \tau)$
+  \item No
+  \item Yes
 \end{enumerate}
-
-
-\[ln(\frac{1}{(2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}}) = ln((2\pi)^{-\frac{n}{2}}|\Sigma|^{-\frac{1}{2}})\]
 
 \end{document} 
 
