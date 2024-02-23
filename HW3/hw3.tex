@@ -69,13 +69,32 @@
 {\Large {\sf \underline{\textbf{DO NOT POLLUTE!}} AVOID PRINTING, OR PRINT 2-SIDED MULTIPAGE.}}
 \end{center}
 
-\section*{Problem 2.1}
-
+\section*{Problem 3.1}
 \begin{enumerate}[label=(\alph*)]
   \item I used good ol' fashioned guess and check. I set the iterations to 2000 and printed out the weights after every 100 iterations. Once the values started to level off, I considered that convergence
   \item It took me about 3000 iterations to converge to a respectable value
   \item I performed min-max normalization to avoid running into a RuntimeWarning (when the exponential got WAY too big), so my results for $\hat{\theta}$ were: \[[-0.10924571, 0.03981236, -0.77742697, -0.01827487, 0.002808]\]
-  \item I stored the likelihood for every iteration just to compare. With taht said, the final value for the log-likelihood of $\hat{\theta}$ is: -0.6700727101571831
+  \item I stored the likelihood for every iteration just to compare. With that said, the final value for the log-likelihood of $\hat{\theta}$ is: -0.6700727101571831
+  \item From Theorem 6.2 in the Logistic Regression notes, we can see that $\hat{\theta} \longrightarrow  \mathcal{N}(\theta^*, I^{-1}_{\theta^*})$ where the Fisher Information is shown as: \[I_{\theta^*} = \sum_{i=1}^{N}\frac{e^{-\theta^{*T}\sf{x}_i}}{(1 + e^{-\theta^{*T}\sf{x}_i})^2}\sf{x}_i\sf{x}^T_i\]
+\end{enumerate}
+
+\section*{Problem 3.2}
+\begin{enumerate}[label=(\alph*)]
+  \item 
+  \item 
+\end{enumerate}
+
+\section*{Problem 3.3}
+\begin{enumerate}[label=(\alph*)]
+  \item 
+  \item 
+  \item 
+\end{enumerate}
+
+\section*{Problem 3.4}
+\begin{enumerate}[label=(\alph*)]
+  \item 
+  \item 
   \item 
 \end{enumerate}
 
