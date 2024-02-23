@@ -67,12 +67,12 @@ X_scaled = (X - min_val) / (max_val - min_val)
 
 x_train, x_test, y_train, y_test = train_test_split(X_scaled, y, test_size= 0.15, random_state=0) 
        
-model = LogRegression(max_iterations=2000)
+model = LogRegression(max_iterations=3000)
 model.gradient_ascent(x_train, y_train)
 
 y_hat = model.predict(x_test)
 
 print('Final Weights: ')
 print(model.weights)
-print('MLEs of theta hat: ')
-print(model.likelihoods)
+print('MLE of theta hat: ')
+print(model.likelihoods[-1])
