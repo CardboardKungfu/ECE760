@@ -10,9 +10,9 @@ def log_likelihood(y_star, y_hat):
     y_hat = np.maximum(np.full(y_hat.shape, epsilon), np.minimum(np.full(y_hat.shape, 1 - epsilon), y_hat))
     
     # Remember that the MLE is y * log(yh) + (1-y) * log(1-yh)
-    likelihood = (y_star * np.log(y_hat) + (1 - y_star) * np.log(1 - y_hat))
+    l_likelihood = (y_star * np.log(y_hat) + (1 - y_star) * np.log(1 - y_hat))
 
-    return np.mean(likelihood)
+    return np.sum(l_likelihood)
 
 def gradient_ascent(X, y, display_weights=True):
     weights = np.zeros(X.shape[1])
@@ -20,7 +20,7 @@ def gradient_ascent(X, y, display_weights=True):
     # Run Gradient Ascent
     for i in range(max_iterations):
         y_hat = sigmoid(np.dot(X, weights))
-        gradient = np.mean((y - y_hat) * X.T, axis=1)
+        gradient = np.sum((y - y_hat) * X.T, axis=1)
         weights += learning_rate * gradient
 
         # Show weights at different iterations to see how fast or slow convergence is
@@ -40,14 +40,14 @@ def predict(X, weights, threshold = 0.5):
 data = np.loadtxt("titanic_data.csv", delimiter=',', skiprows=1)
 
 y = data[:, 0]
-X = data[:, 1:-1]
+X = data[:, 1:]
 
 min_val = np.min(X)
 max_val = np.max(X)
 
-X_scaled = (X - min_val) / (max_val - min_val)
+X = (X - min_val) / (max_val - min_val)
 
-x_train, x_test, y_train, y_test = train_test_split(X_scaled, y, test_size= 0.15, random_state=0) 
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size= 0.15, random_state=0) 
 
 learning_rate = 0.01
 max_iterations = 3000
@@ -55,11 +55,23 @@ likelihoods = []
 
 epsilon = 1e-7 # Since log(0) is not defined, create a minimum value epsilon to replace with if necessary
 
-weights = gradient_ascent(x_train, y_train, display_weights=True)
+weights = gradient_ascent(x_train, y_train, display_weights=False)
 
+# Prediction based on the testing set
 y_hat = predict(x_test, weights)
 
+# Print out values
 print('Final Weights: ')
 print(weights)
 print('MLE of theta hat: ')
 print(np.max(likelihoods))
+
+# Test based on my own new feature
+new_feature = np.array([3, 0, 24, 7, 2, 8]).reshape(-1, 1)
+new_y_hat = predict(new_feature.T, weights.reshape(-1, 1))
+print(new_y_hat)
+
+# Find tau
+# fisher_information = np.sum((np.exp(-weights.T @ X) / (1 + np.exp(-weights.T @ X))**2) @ X @ X.T)
+# inv_fish_inf = np.linalg.inv(fisher_information)
+# print(inv_fish_inf)
