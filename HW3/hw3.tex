@@ -60,6 +60,7 @@
 \DeclareMathOperator*{\argmax}{arg\!\max}
 \usepackage{siunitx}
 \usepackage{enumitem} % used to make alphabetical lists instead of numbered ones
+\usepackage{mathtools}
 
 % =============== DOCUMENT ===============
 \begin{document}
@@ -71,17 +72,17 @@
 
 \section*{Problem 3.1}
 \begin{enumerate}[label=(\alph*)]
-  \item I used good ol' fashioned guess and check. I set the iterations to 2000 and printed out the weights after every 100 iterations. Once the values started to level off, I considered that convergence
-  \item It took me about 3000 iterations to converge to a respectable value
+  \item I used good ol' fashioned guess and check. I set the iterations to 3000 and printed out the weights after every 100 iterations. Once the values started to level off, I considered that convergence
+  \item It took me about 2000 iterations to converge to a respectable value, although extending it to 3000 refined it just a bit more.
   \item I performed min-max normalization to avoid running into a RuntimeWarning (when the exponential got WAY too big), so my results for $\hat{\theta}$ were: \[[-0.10924571, 0.03981236, -0.77742697, -0.01827487, 0.002808]\]
-  \item I stored the likelihood for every iteration just to compare, which can be found in the likelihoods list in my $grad\_ascent.py$ file. With that said, the final value for the log-likelihood of $\hat{\theta}$ is: -0.6700727101571831
-  \item From Theorem 6.2 in the Logistic Regression notes, we can see that $\hat{\theta} \longrightarrow  \mathcal{N}(\theta^*, I^{-1}_{\theta^*})$ where the Fisher Information is shown as: \[I_{\theta^*} = \sum_{i=1}^{N}\frac{e^{-\theta^{*T}\sf{x}_i}}{(1 + e^{-\theta^{*T}\sf{x}_i})^2}\sf{x}_i\sf{x}^T_i\]
+  \item The maximum log-likelihood of $\hat{\theta}$ is: -0.6700727101571831
+  \item From Theorem 6.2 in the Logistic Regression notes, we can see that $\hat{\theta} \xlongrightarrow[\text{}]{\text{d}} \mathcal{N}(\theta^*, I^{-1}_{\theta^*})$ where the Fisher Information is shown as: \[I_{\theta^*} = \sum_{i=1}^{N}\frac{e^{-\theta^{*T}\sf{x}_i}}{(1 + e^{-\theta^{*T}\sf{x}_i})^2}\sf{x}_i\sf{x}^{\sf{T}}_i\]
 \end{enumerate}
 
 \section*{Problem 3.2}
 \begin{enumerate}[label=(\alph*)]
-  \item 
-  \item 
+  \item Borrowing from the Logistic Regression notes again, we can see that the MLE of the log-odds $\hat{\omega} := \hat{\theta}^{\sf{T}}\sf{x}$ where $\hat{\theta}$ are the true parameters, $\theta^*$.
+  \item Furthermore, the asymptotic distribution of $\hat{\omega}$ is defined as $\hat{\omega} \xlongrightarrow[\text{}]{\text{d}} \mathcal{N}(\theta^{*\sf{T}}\textbf{x}, \textbf{x}^{\sf{T}}I^{-1}_{\theta^*}\textbf{x})$
 \end{enumerate}
 
 \section*{Problem 3.3}
