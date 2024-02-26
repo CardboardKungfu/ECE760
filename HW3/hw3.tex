@@ -75,7 +75,7 @@
   \item I used good ol' fashioned guess and check. I set the iterations to 3000 and printed out the weights after every 100 iterations. Once the values started to level off, I considered that convergence
   \item It took me about 3000 iterations to converge.
   \item I performed min-max normalization to avoid running into a RuntimeWarning (when the exponential got WAY too big), so my results for $\hat{\theta}$ were: \[[-6.75837555, 4.55726066, -14.28891882, -3.05890586, -0.50213527, 7.82165471]\]
-  \item The maximum log-likelihood of $\hat{\theta}$ is: -470.15901001623024
+  \item The maximum log-likelihood of $\hat{\theta}$ was: -470.15901001623024
   \item From Theorem 6.2 in the Logistic Regression notes, we can see that $\hat{\theta} \xlongrightarrow[\text{}]{\text{d}} \mathcal{N}(\theta^*, I^{-1}_{\theta^*})$ where the Fisher Information is shown as: \[I_{\theta^*} = \sum_{i=1}^{N}\frac{e^{-\theta^{*T}\sf{x}_i}}{(1 + e^{-\theta^{*T}\sf{x}_i})^2}\sf{x}_i\sf{x}^{\sf{T}}_i\]
 \end{enumerate}
 
@@ -87,16 +87,16 @@
 
 \section*{Problem 3.3}
 \begin{enumerate}[label=(\alph*)]
-  \item I maximized my feature vector, having my entire family on board in the cheapest class and fare I could find. WIth that, my feature vector looked like so: \[[Pclass=3, male=0, age=24, siblings=7, parents=2, fare=8]\] When I run this through my model, unfortunately I do not survive. As I tested other values, I found that affluent women were far more likely to survive. 
-  \item Given $\tau = \Phi^{-1}_{\mathcal{N}}(\frac{\alpha}{2} | 0, \textbf{x}^{\sf{T}}I^{-1}_{\theta^*}\textbf{x})$
-  \item 
+  \item I maximized my feature vector, having my entire family on board in the cheapest class and a really low fare. With that, my feature vector looked like so: \[[Pclass=3, male=0, age=24, siblings=7, parents=2, fare=8]\] When I ran this through my model, unfortunately I did not survive.
+  \item Given $\tau = \Phi^{-1}_{\mathcal{N}}(\frac{\alpha}{2} | 0, \textbf{x}^{\sf{T}}I^{-1}_{\theta^*}\textbf{x})$, I found $\tau$ to be just around 1.
+  \item Interpreting this, we fall around 1 standard deviation of the mean given a normal distribution. I would say this is more certain than not. I'm not a betting man, so I don't like my odds, but it's better than 50/50. Also, the accuracy of my model falls around the 70\% range, which also isn't terrible.
 \end{enumerate}
 
 \section*{Problem 3.4}
 \begin{enumerate}[label=(\alph*)]
-  \item 
-  \item 
-  \item 
+  \item To find the significance of our features, we can use the generalized likelihood ratio test as found in the Logistic Regression Notes under formula 6.13: \[(\frac{\hat{\theta}_j}{\nu_j})^2 \gtrless \phi^{-1}_{\mathcal{X}}(\alpha) \]
+  \item Plugging in $\alpha = 0.05$, we find that passenger class, sex, age, and fare were significant while and number of siblings/spouses and parents/children were not significant.
+  \item All things being equal, just changing sex from male to female still has me dying. However, if I change from male to female and then increase my fare, I no longer go down with the ship and make it out alive.
 \end{enumerate}
 
 \end{document} 
