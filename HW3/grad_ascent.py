@@ -1,19 +1,16 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
+import pandas as pd
 
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
-def log_likelihood(y_star, y_hat):
-    # Courtesy of Implementation of Gradient Ascent using Logistic Regression article on Medium
-    # Avoid undefined log(0) behavior
-    # Since log(0) is not defined, create a minimum value epsilon to replace with if necessary
-    epsilon = 1e-7
-    y_hat = np.maximum(np.full(y_hat.shape, epsilon), np.minimum(np.full(y_hat.shape, 1 - epsilon), y_hat))
-    
-    # Remember that the MLE is y * log(yh) + (1-y) * log(1-yh)
-    l_likelihood = (y_star * np.log(y_hat) + (1 - y_star) * np.log(1 - y_hat))
+def add_intercept(X):
+    intercept = np.ones((X.shape[0], 1))
+    return np.concatenate((intercept, X), axis=1)
 
+def log_likelihood(y_star, y_hat):
+    l_likelihood = (y_star * np.log(y_hat) + (1 - y_star) * np.log(1 - y_hat))
     return np.sum(l_likelihood)
 
 def gradient_ascent(X, y, display_weights=True):
@@ -23,7 +20,8 @@ def gradient_ascent(X, y, display_weights=True):
     # Run Gradient Ascent
     for i in range(max_iterations):
         y_hat = sigmoid(np.dot(X, weights))
-        gradient = np.sum((y - y_hat) * X.T, axis=1)
+        # gradient = np.sum((y - y_hat) * X.T, axis=1)
+        gradient = np.dot(X.T, y - y_hat)
         weights += learning_rate * gradient
 
         # Show weights at different iterations to see how fast or slow convergence is
@@ -40,19 +38,26 @@ def predict(X, weights, threshold = 0.5):
     bin_hats = np.array(list(map(lambda x: 1 if x > threshold else 0, probabilities)))
     return bin_hats
 
-data = np.loadtxt("titanic_data.csv", delimiter=',', skiprows=1)
+def accuracy(X, y, theta):
+    predictions = predict(X, theta)
+    return (predictions == y).mean()
 
-y = data[:, 0]
-X = data[:, 1:]
+data_path = 'titanic_data.csv'
+titanic_data = pd.read_csv(data_path)
+
+X = titanic_data.drop('Survived', axis=1).values
+y = titanic_data['Survived'].values
 
 min_val = np.min(X)
 max_val = np.max(X)
 
 X = (X - min_val) / (max_val - min_val)
 
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size= 0.15, random_state=0) 
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size= 0.15, random_state=0)
+x_train = add_intercept(x_train)
+x_test = add_intercept(x_test)
 
-learning_rate = 0.01
+learning_rate = 0.001
 max_iterations = 3000
 
 weights, likelihoods = gradient_ascent(x_train, y_train, display_weights=False)
@@ -67,11 +72,11 @@ print('MLE of theta hat: ')
 print(np.max(likelihoods))
 
 # Test based on my own new feature
-new_feature = np.array([1, 0, 24, 0, 0, 70]).reshape(-1, 1)
+new_feature = np.array([1, 1, 0, 24, 0, 0, 70]).reshape(-1, 1)
 new_y_hat = predict(new_feature.T, weights.reshape(-1, 1))
 print(new_y_hat) # 1 = survive, 0 = go down with the ship
 
-# Find tau
+# # Find tau
 from scipy.stats import norm
 
 def compute_tau(alpha, features, inv_fisher_information):
