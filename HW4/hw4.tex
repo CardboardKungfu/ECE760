@@ -56,22 +56,33 @@
 }
 
 
+% ===== Jed's Defined Stuff ======
+\DeclareMathOperator*{\argmin}{arg\!\min}
+\DeclareMathOperator*{\argmax}{arg\!\max}
+\usepackage{siunitx}
+\usepackage{enumitem} % used to make alphabetical lists instead of numbered ones
+\usepackage{mathtools}
 
 % =============== DOCUMENT ===============
 \begin{document}
-\lecture{TOPIC}{WRITE YOUR NAMES HERE}
+\lecture{Homework 4: Decision Trees}{Jed Pulley}
 
 \begin{center}
 {\Large {\sf \underline{\textbf{DO NOT POLLUTE!}} AVOID PRINTING, OR PRINT 2-SIDED MULTIPAGE.}}
 \end{center}
 
-\begin{abstract}
-Write your abstract here
-\end{abstract}
+\section*{Problem 4.1}
+\textbf{Passenger Class:} First class is zero and other classes are 1. \\
+\textbf{Sex:} I left sex alone, since it was already binary. \\
+\textbf{Age:} I split age based on the median. If you were above the median age, you get 1, otherwise 0. \\
+\textbf{Siblings/Spouse:} I chose 0 for no siblings/spouses and 1 for any number of them. \\
+\textbf{Parents/Children:} Similarly, I chose 0 for no parents/children and 1 for any \\
+\textbf{Fare:} I split fare based on the median.
 
-\section{Introduction}
-Start here
-
+\section*{Problem 4.2}
+% \begin{enumerate}[label=(\alph*)]
+%   \item 
+% \end{enumerate}
 
 \end{document} 
 
