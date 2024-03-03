@@ -72,19 +72,23 @@
 \end{center}
 
 \section*{Problem 4.1}
-\textbf{Passenger Class:} First class is zero and other classes are 1. \\
+\textbf{Passenger Class:} First class is 1 and other classes are 0. \\
 \textbf{Sex:} I left sex alone, since it was already binary. \\
-\textbf{Age:} I split age based on the median. If you were above the median age, you get 1, otherwise 0. \\
-\textbf{Siblings/Spouse:} I chose 0 for no siblings/spouses and 1 for any number of them. \\
-\textbf{Parents/Children:} Similarly, I chose 0 for no parents/children and 1 for any \\
-\textbf{Fare:} I split fare based on the median.
+\textbf{Age:} I split age based on the median. If you were above the median age, you get 0, otherwise 1. \\
+\textbf{Siblings/Spouse:} I chose 1 for no siblings/spouses and 0 for any number of them. \\
+\textbf{Parents/Children:} Similarly, I chose 1 for no parents/children and 0 for any \\
+\textbf{Fare:} I split fare based on the median, if you are above, you get 1, otherwise 0.
 
 \section*{Problem 4.2}
-See $decision\_trees.py$ under comment "4.2 Find Mutual Information" for code
+See $decision\_trees.ipynb$ under section 4.2 for code
 
 \section*{Problem 4.3}
+See $decision\_trees.ipynb$ under section 4.3 for code
+
+Two variables, $max\_depth$ and $min\_samples\_split$, are defined as my  stopping conditions. If a node exceeds the max depth, then stop. Otherwise, if a node is about to be split more times than our minimum sample split, then it will stop as well. This prevents the tree from getting too deep or wide.
 
 \section*{Problem 4.4}
+See $decision\_trees.ipynb$ under section 4.4 for code
 
 \section*{Problem 4.5}
 
