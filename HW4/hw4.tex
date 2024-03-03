@@ -62,6 +62,7 @@
 \usepackage{siunitx}
 \usepackage{enumitem} % used to make alphabetical lists instead of numbered ones
 \usepackage{mathtools}
+\usepackage{graphicx}
 
 % =============== DOCUMENT ===============
 \begin{document}
@@ -88,60 +89,66 @@ See $decision\_trees.ipynb$ under section 4.3 for code
 Two variables, $max\_depth$ and $min\_samples\_split$, are defined as my  stopping conditions. If a node exceeds the max depth, then stop. Otherwise, if a node is about to be split more times than our minimum sample split, then it will stop as well. This prevents the tree from getting too deep or wide.
 
 \section*{Problem 4.4}
-See $decision\_trees.ipynb$ under section 4.4 for code
+\includegraphics[scale=0.4]{4-7-images/tree_0}
 
 \section*{Problem 4.5}
+Using $train\_test\_split$ from sklearn, I came up with an accuracy of 0.893
 
 \section*{Problem 4.6}
+For a man paying a low fare with no children, siblings and parents on board, I would have survived the titanic.
 
 \section*{Problem 4.7}
 \begin{enumerate}[label=(\alph*)]
   \item 
-  \item 
-  \item 
+  \includegraphics[scale=0.4]{4-7-images/tree_0} \\
+  \includegraphics[scale=0.4]{4-7-images/tree_1} \\
+  \includegraphics[scale=0.4]{4-7-images/tree_2} \\
+  \includegraphics[scale=0.4]{4-7-images/tree_3} \\
+  \includegraphics[scale=0.4]{4-7-images/tree_4}
+  \item Using 10-fold cross validation, I get an accuracy of 89\%.
+  \item Using the same feature from before, I get the same results.
 \end{enumerate}
 
 \section*{Problem 4.8}
 \begin{enumerate}[label=(\alph*)]
-  \item 
-  \item 
-  \item 
+  \item
+  \includegraphics[scale=0.4]{4-8-images/tree_0} \\
+  \includegraphics[scale=0.25]{4-8-images/tree_1} \\
+  \includegraphics[scale=0.4]{4-8-images/tree_2} \\
+  \includegraphics[scale=0.4]{4-8-images/tree_3} \\
+  \includegraphics[scale=0.4]{4-8-images/tree_4} \\
+  \includegraphics[scale=0.4]{4-8-images/tree_5}
+  \item My accuracy reduced, but not by a lot. It went down to 86\%.
+  \item Yes, I would have survived. This is using the same feature as the previous two.
 \end{enumerate}
 
 \section*{Problem 4.9}
+My decision tree predictions agree, but those disagree with my logistic regression predictions. My assumption as to why is because I'm binarizing my data here and potentially am losing information in the process. I would prefer to use logistic regression, in no small part because it's FAR simpler to implement and understand.
 
 \section*{Problem 4.10}
+From the definition of mutual information, we know that:
+\[I(x;y) = H(x) - H(x|y)\]
+
+So, to prove that $I(x;y) = I(y;x)$, we need to show:
+\[H(x) - H(x|y) = H(y) - H(y|x)\]
+
+Conditional entropy is defined as:
+ \[H(x|y) = H(x,y) - H(y) \text{ and, conversely } H(y|x) = H(y,x) - H(x)\]
+
+
+Substituting these equations into the above, we get:
+\[H(x) - (H(x,y) - H(y)) = H(y) - (H(y, x) - H(x))\]
+
+After rearranging, we get:
+\[H(x) + H(y) - H(x,y) = H(x) + H(y) - H(y, x)\]
+
+To clean up, we subtract $H(y)$ and $H(x)$ from both sides, multiply by -1, and get:
+\[H(x,y) = H(y,x)\]
+
+This still necessitates that we show that joint entropy is symmetric, so we define joint entropy as:
+\[ H(X,Y) = -\sum_{x\in X} \sum_{y \in Y} \mathbb{P}(x,y)log_2[\mathbb{P}(x,y)]\]
+\[ H(Y,X) = -\sum_{y \in Y} \sum_{x\in X} \mathbb{P}(y,x)log_2[\mathbb{P}(y,x)]\]
+
+Since the order of summation doesn't affect the result and we know that joint probability is symmetric, we can say prove that $H(x,y) = H(y,x) $
 
 \end{document} 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

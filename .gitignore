@@ -1,6 +1,12 @@
 ## Personal Ignore Stuffs
 Resources/
 
+## HW4 specific ignore stuff
+HW4/4-7-images/
+HW4/4-8-images/
+HW4/decision_tree_graph.pdf
+HW4/decision_tree_graph
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
