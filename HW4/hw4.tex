@@ -73,10 +73,10 @@
 \end{center}
 
 \section*{Problem 4.1}
-\textbf{Passenger Class:} First class is 1 and other classes are 0. \\
+\textbf{Passenger Class:} First class is 1 and other classes are 0. I figured there are marginal benefits after 1st class. \\
 \textbf{Sex:} I left sex alone, since it was already binary. \\
-\textbf{Age:} I split age based on the median. If you were above the median age, you get 0, otherwise 1. \\
-\textbf{Siblings/Spouse:} I chose 1 for no siblings/spouses and 0 for any number of them. \\
+\textbf{Age:} I split age based on if you were a minor or not (i.e. age $<$ 18yo). \\
+\textbf{Siblings/Spouse:} I chose 1 for no siblings/spouses and 0 for any number of them. My thought that is that any number of children, be it one or many, has a similar affect \\
 \textbf{Parents/Children:} Similarly, I chose 1 for no parents/children and 0 for any \\
 \textbf{Fare:} I split fare based on the median, if you are above, you get 1, otherwise 0.
 
@@ -92,21 +92,21 @@ Two variables, $max\_depth$ and $min\_samples\_split$, are defined as my  stoppi
 \includegraphics[scale=0.4]{4-7-images/tree_0}
 
 \section*{Problem 4.5}
-Using $train\_test\_split$ from sklearn, I came up with an accuracy of 0.893
+After running CV, I come up with an accuracy of around 89\%
 
 \section*{Problem 4.6}
-For a man paying a low fare with no children, siblings and parents on board, I would have survived the titanic.
+For a man paying a low fare with no children, siblings and parents on board, I would not have survived the titanic.
 
 \section*{Problem 4.7}
 \begin{enumerate}[label=(\alph*)]
-  \item 
+  \item Notably, no matter how I sampled the 80\% of my data, all the subsets produced similar trees. \\
   \includegraphics[scale=0.4]{4-7-images/tree_0} \\
   \includegraphics[scale=0.4]{4-7-images/tree_1} \\
   \includegraphics[scale=0.4]{4-7-images/tree_2} \\
   \includegraphics[scale=0.4]{4-7-images/tree_3} \\
   \includegraphics[scale=0.4]{4-7-images/tree_4}
   \item Using 10-fold cross validation, I get an accuracy of 89\%.
-  \item Using the same feature from before, I get the same results.
+  \item Using the same feature from before, I get the same results and do not survive, unfortunately.
 \end{enumerate}
 
 \section*{Problem 4.8}
@@ -119,11 +119,11 @@ For a man paying a low fare with no children, siblings and parents on board, I w
   \includegraphics[scale=0.4]{4-8-images/tree_4} \\
   \includegraphics[scale=0.4]{4-8-images/tree_5}
   \item My accuracy reduced, but not by a lot. It went down to 86\%.
-  \item Yes, I would have survived. This is using the same feature as the previous two.
+  \item No, I would not have survived. This is using the same feature as the previous two.
 \end{enumerate}
 
 \section*{Problem 4.9}
-My decision tree predictions agree, but those disagree with my logistic regression predictions. My assumption as to why is because I'm binarizing my data here and potentially am losing information in the process. I would prefer to use logistic regression, in no small part because it's FAR simpler to implement and understand.
+My decision tree predictions agree, but those disagree with my logistic regression predictions. My assumption as to why is because I'm binarizing my data here and I potentially lose information in the process. I would prefer to use logistic regression, in no small part because I find it far simpler to implement and understand.
 
 \section*{Problem 4.10}
 From the definition of mutual information, we know that:
