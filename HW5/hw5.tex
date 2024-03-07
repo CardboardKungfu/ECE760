@@ -83,9 +83,9 @@
 \section*{Problem 5.2}
 \begin{enumerate}[label=(\alph*)]
   \item See code in $KNN.ipynb$ under Problem 5.2.
-  \item For simplicity, I modeled all my variables normally.
-  \item Yet again, I do not survive the titanic. But just to quadruple check, I used my $test_features$ array to try out multiple demographics. Among them, the only sample that survived was a female minor with parents, siblings, and paid a decent fare of 30 dollars.
-  \item I calculated the accuracy using $train\_test\_split$ from sklearn which gave me around 80\% accuracy. However, another method could be to perform cross validation using different distributions for the different variables. For example, you change it so that sex is modeled bernoulli and then run a CV on that.
+  \item For simplicity, I modeled all my variables Bernoulli.
+  \item Yet again, I do not survive the titanic. But just to quadruple check, I used my $test\_features$ array to try out multiple demographics. Among them, the only sample that survived was a female minor with parents, siblings, and paid a decent fare of 30 dollars.
+  \item I calculated the accuracy using $train\_test\_split$ from sklearn which gave me around 80\% accuracy. However, another method could be to perform cross validation using different distributions for the different variables.
 \end{enumerate}
 
 \section*{Problem 5.3}
