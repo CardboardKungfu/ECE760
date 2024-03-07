@@ -76,7 +76,7 @@
     \item I used $np.linalg.norm$ to implement the euclidean distance. I chose the L2 norm because I find it to be more straightforward and intuitive, plus I'm much more used to using it from my previous Linear Algebra classes.
     \item See code in $KNN.ipynb$ under Problem 5.1. I tested out multiple features and summed up the counts of survival, based on how many K nearest neighbors I use. Unfortunately, I did not survive based on my demographics. Notably, as I increased K, the number of survivers went down. \\
     \parbox{\linewidth}{\centering \includegraphics[scale=0.6]{bar_plot.png}}
-    \item While $k=1$ and $k=2$ have the most survivors among my samples, I beleive that's because there isn't enough wiggle room for correct classification. I believe $k=6$ is most representative give the fact that I have 6 different features.
+    \item While $k=1$ and $k=2$ have the most survivors among my samples, I believe that's because there isn't enough wiggle room for correct classification. I believe $k=6$ is most representative given my 6 different features.
     \item The most apparent solution is to run multiple rounds of cross validation along different values for K to assess the accuracy.
   \end{enumerate}
 
@@ -90,11 +90,11 @@
 
 \section*{Problem 5.3}
 
-While KNN was by far the easiest to implement among all the other algorithms, I still prefer linear regression. Most likely, that's due to my familiarity with having used it so often.
+While KNN was by far the easiest to implement among all the other algorithms, I still prefer linear regression. But that's likely due to my familiarity with having used it so often. It also seems to depend on what my data is.
 
 \section*{Problem 5.4}
 
-See code in $KNN.ipynb$ under Problem 5.4. I recreated the data in my code and ran it through my prediction, along with a few other features just for kicks and giggles. Using my Naive Bayes algorithms, I would classify the new email as ham.
+See code in $KNN.ipynb$ under Problem 5.4. I recreated the data in my code and ran it through my Naive Bayes prediction algorithm, along with a few other features just for kicks and giggles. Based on that, I would classify the new email as ham, NOT spam.
 
 \section*{Problem 5.5}
 See code in $KNN.ipynb$ under Problem 5.5. To shake things up, this time I used K-Nearest Neighbors for classification and used three feature vectors, to include the one in the notes. In all three cases, I predict the killer to be male.
