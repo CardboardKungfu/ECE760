@@ -74,18 +74,38 @@
 
 \section*{Problem 6.1. Frequentist (MLE)}
 To find the MLE of $p*$, we first start with the likelihood function:
-\[P(p*) = \prod^n_{i=1} (p^{\sf{x}_i}(1-p)^{1 - \sf{x}_i})\]
+
+  \[\mathbb{P}(p*) = \prod^n_{i=1} (p^{\sf{x}_i} (1 - p)^{1 - \sf{x}_i})\]
 
 Then we take the log of the likelihood function:
-\[ log(P(p^*)) = logp \sum_{i=1}^{n} \sf{x}_i + log (1 - p) \sum_{i=1}^{n}(1 - \sf{x}_i) \]
+  \[ log(\mathbb{P}(p^*)) = logp \sum_{i=1}^{n} {\sf{x}_i} + log (1 - p) \sum_{i=1}^{n}(1 - {\sf{x}_i}) \]
 
 Using our optimization 101 technique, we get the derivative and set it equal to zero:
-\[ p_{MLE} = \frac{1}{n} \sum_{i=1}^{n} \sf{x}_i \]
+  \[ p_{MLE} = \frac{1}{n} \sum_{i=1}^{n} \sf{x}_i \]
 
 Which we recognize to just be the mean.
 
+\section*{Problem 6.2. Bayesian (MAP)}
+We use our MAP formula $p_{MAP} = \underset{p}{\arg\max} \mathbb{P}(X | p)$ as our starting point. Using Bayes Rule, we can rearrange it as such:
 
-\section*{Problem 6.2}
+\[ p_{MAP} = \underset{p}{\arg\max} \frac{\mathbb{P}(X | p) \mathbb{P}(p)}{\mathbb{P}(X)} \]
+
+Since we're maximizing for $p$, we can ignore the $\mathbb{P(X)}$ term as it doesn't depend on $p$:
+\[ p_{MAP} = \underset{p}{\arg\max} \mathbb{P}(X | p) \mathbb{P}(p)\]
+
+This is very similar to our MLE statement above, with the exception of our prior term $\mathbb{P}(p)$ which we're assuming is information gathered about a previous event. Notably, if there is no prior information, our MAP estimate is equal to our MLE.
+
+Given our prior $\mathbb{P}(p)$ being modeled as $Beta(\alpha, \beta)$, we can show our prior below:
+
+\[ \mathbb{P}(p) = \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}p^{\alpha - 1}(1 - p)^{\beta - 1} \]
+
+Using the prior information, the likelihood of our data (we'll say $X = [\sf{x}_1, \sf{x}_2, ..., \sf{x}_N]^{\sf{T}}$) can be written as:
+
+\[ \mathbb{P}(X|p) = p^{\sum_{i=1}^{N} {\sf{x}}_i} (1 - p)^{N - \sum_{i=1}^{N} {\sf{x}}_i} =  p^{1^{{\sf{T}}}{\sf{X}}} (1 - p)^{N-1^{{\sf{T}}}{\sf{X}}} \]
+
+Simplifying and matching with the form of a Beta distribution, we find our MAP estimator to be:
+
+\[ \hat{p}_{MAP} = \frac{\sum_{i=1}^{N} {\sf{x}_i} + \alpha - 1}{N + \alpha + \beta - 2} \]
 
 \section*{Problem 6.3}
   \begin{enumerate}[label=(\alph*)]
@@ -102,35 +122,3 @@ Which we recognize to just be the mean.
 \section*{Problem 6.5}
 
 \end{document} 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
