@@ -73,9 +73,9 @@
 \end{center}
 
 \section*{Problem 6.1. Frequentist (MLE)}
-To find the MLE of $p*$, we first start with the likelihood function:
+To find the MLE of $p^*$, we first start with the likelihood function:
 
-  \[\mathbb{P}(p*) = \prod^n_{i=1} (p^{\sf{x}_i} (1 - p)^{1 - \sf{x}_i})\]
+  \[\mathbb{P}(p^*) = \prod^n_{i=1} (p^{\sf{x}_i} (1 - p)^{1 - \sf{x}_i})\]
 
 Then we take the log of the likelihood function:
   \[ log(\mathbb{P}(p^*)) = logp \sum_{i=1}^{n} {\sf{x}_i} + log (1 - p) \sum_{i=1}^{n}(1 - {\sf{x}_i}) \]
@@ -107,24 +107,38 @@ Simplifying and matching with the form of a Beta distribution, we find our MAP e
 
 \[ \hat{p}_{MAP} = \frac{\sum_{i=1}^{N} {\sf{x}_i} + \alpha - 1}{N + \alpha + \beta - 2} \]
 
-\section*{Problem 6.3. (Correct prior)}
-  \begin{enumerate}[label=(\alph*)]
-    \item To find the number of samples for the MLE, we need to start with the variance of the MLE when it's distributed bernoulli, which in our case is $\frac{p^*(1 - p^*)}{N}$. We want this variance to be $\le 0.01^2$ for our estimator to be within 0.01 of $p^*$. So now we plug and chug our numbers:
-      \[ \frac{0.99(1 - 0.99)}{N} \le 0.01^2 = \frac{0.99 * 0.01}{N} \le 0.0001 = N \ge 99\]
-    So we would need at least 99 samples to be within 0.01 of $p^*$.
-    \item While the variance of MAP is somewhat trickier to analyze directly, we can use the Central Limit Thereom to assume a normal distribution with mean $p^*$ and variance $\frac{p^*(1 - p^*)}{N}$, which happens to be the same as above. Therefore, in both cases, we require at least 99 samples to be within 0.01 of the true value $p^* = 0.99$.
-\end{enumerate}
+\section*{Problem 6.3. (a) \& (b) (Correct prior)}
+I modified the code from the lecture notes to produce the following results. I'm assuming $\alpha = 7$ and $\beta = 2$ since we are given that it's skewed towards 1. As well, I have set $p^* = 0.99$
+\\
+\includegraphics[scale=0.45]{images_99/MAPvsMLE_3}
+\includegraphics[scale=0.45]{images_99/MAPvsMLE_5} \\
+\includegraphics[scale=0.45]{images_99/MAPvsMLE_8} 
+\includegraphics[scale=0.45]{images_99/MAPvsMLE_10} \\
+\includegraphics[scale=0.45]{images_99/MAPvsMLE_15}
+\includegraphics[scale=0.45]{images_99/MAPvsMLE_25} \\
 
-\section*{Problem 6.4}
-  \begin{enumerate}[label=(\alph*)]
-    \item Going through the same process as before, we plug and chug with different values:
-      \[ \frac{0.01(1 - 0.01)}{N} \le 0.01^2 = \frac{0.01 * 0.99}{N} \le 0.0001 = N \ge 99\]
-    Oddly enough, this shows the same answer as the previous problem of $N \ge 99$.
-    \item Using the same logic as 6.3 and 6.4a, we can also say $N \ge 99$.
-\end{enumerate}
+From these graphs, we can see that MAP converges within 0.01 much faster than the MLE, around $N = 5$ iterations whereas MLE gets there around $N = 20$ iterations.
+
+\section*{Problem 6.4. (a) \& (b) (Incorrect Prior)}
+Using the same code as above, I set $p^* = 0.01$
+\\
+\includegraphics[scale=0.45]{images_01/MAPvsMLE_3}
+\includegraphics[scale=0.45]{images_01/MAPvsMLE_5} \\
+\includegraphics[scale=0.45]{images_01/MAPvsMLE_8} 
+\includegraphics[scale=0.45]{images_01/MAPvsMLE_10} \\
+\includegraphics[scale=0.45]{images_01/MAPvsMLE_15}
+\includegraphics[scale=0.45]{images_01/MAPvsMLE_25} \\
+\includegraphics[scale=0.45]{images_01/MAPvsMLE_50}
+\includegraphics[scale=0.45]{images_01/MAPvsMLE_70} \\
+\includegraphics[scale=0.45]{images_01/MAPvsMLE_80}
+\includegraphics[scale=0.45]{images_01/MAPvsMLE_99} \\
+
+Under the incorrect prior of $p^* = 0.01$, we see that the MLE converages to within 0.01 much faster, around $N = 15$ iterations. Whereas MAP converages around $N = 85$ iterations.
 
 \section*{Problem 6.5}
-Based on my results, the answers to 6.3 and 6.4 were exactly the same. So in my opinion, it comes down to user preference. I personally prefer the MLE approach since it doesn't rely on a prior, which in many instances is a naive assumption that you would have one to begin with. That being said, when you actually do have a prior, it's incredibly helpful. So what I would prefer to use largely depends on the situation (i.e. given an actual prior or not). 
+Based on my results, which approach you use is highly dependant on how accurate your prior is. In the case where it was dead nuts accurate, MAP converaged within our confidence interval much faster than the MLE. However, when it was WAY off, MLE got there much faster. So in my opinion, it's entirely dependant on the situation.
+
+Personally, I prefer the MLE approach since it doesn't rely on a prior, which in many instances is a naive assumption that you would have one to begin with. That being said, when you actually do have a prior (that is, a correct one), it's incredibly helpful.
 
 The advantage of MLE is its simplicity and ease of use. Especially since in a lot of cases the MLE just turns out to be the mean. The disadvantage is the complement of the above: it's too simple and often just winds up being the mean. Using MLE can constrain you depending on the situation.
 

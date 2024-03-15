@@ -7,6 +7,10 @@ HW4/4-8-images/
 HW4/decision_tree_graph.pdf
 HW4/decision_tree_graph
 
+## HW6 specific ignores
+HW6/images_01
+HW6/images_99
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
