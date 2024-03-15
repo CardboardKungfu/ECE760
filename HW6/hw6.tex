@@ -101,24 +101,33 @@ Given our prior $\mathbb{P}(p)$ being modeled as $Beta(\alpha, \beta)$, we can s
 
 Using the prior information, the likelihood of our data (we'll say $X = [\sf{x}_1, \sf{x}_2, ..., \sf{x}_N]^{\sf{T}}$) can be written as:
 
-\[ \mathbb{P}(X|p) = p^{\sum_{i=1}^{N} {\sf{x}}_i} (1 - p)^{N - \sum_{i=1}^{N} {\sf{x}}_i} =  p^{1^{{\sf{T}}}{\sf{X}}} (1 - p)^{N-1^{{\sf{T}}}{\sf{X}}} \]
+\[ \mathbb{P}(X|p) = p^{\sum_{i=1}^{N} {\sf{x}}_i} (1 - p)^{N - \sum_{i=1}^{N} {\sf{x}}_i} =  p^{\textbf{1}^{{\sf{T}}}{\sf{X}}} (1 - p)^{N-\textbf{1}^{{\sf{T}}}{\sf{X}}} \]
 
 Simplifying and matching with the form of a Beta distribution, we find our MAP estimator to be:
 
 \[ \hat{p}_{MAP} = \frac{\sum_{i=1}^{N} {\sf{x}_i} + \alpha - 1}{N + \alpha + \beta - 2} \]
 
-\section*{Problem 6.3}
+\section*{Problem 6.3. (Correct prior)}
   \begin{enumerate}[label=(\alph*)]
-    \item 
-    \item 
+    \item To find the number of samples for the MLE, we need to start with the variance of the MLE when it's distributed bernoulli, which in our case is $\frac{p^*(1 - p^*)}{N}$. We want this variance to be $\le 0.01^2$ for our estimator to be within 0.01 of $p^*$. So now we plug and chug our numbers:
+      \[ \frac{0.99(1 - 0.99)}{N} \le 0.01^2 = \frac{0.99 * 0.01}{N} \le 0.0001 = N \ge 99\]
+    So we would need at least 99 samples to be within 0.01 of $p^*$.
+    \item While the variance of MAP is somewhat trickier to analyze directly, we can use the Central Limit Thereom to assume a normal distribution with mean $p^*$ and variance $\frac{p^*(1 - p^*)}{N}$, which happens to be the same as above. Therefore, in both cases, we require at least 99 samples to be within 0.01 of the true value $p^* = 0.99$.
 \end{enumerate}
 
 \section*{Problem 6.4}
   \begin{enumerate}[label=(\alph*)]
-    \item 
-    \item 
+    \item Going through the same process as before, we plug and chug with different values:
+      \[ \frac{0.01(1 - 0.01)}{N} \le 0.01^2 = \frac{0.01 * 0.99}{N} \le 0.0001 = N \ge 99\]
+    Oddly enough, this shows the same answer as the previous problem of $N \ge 99$.
+    \item Using the same logic as 6.3 and 6.4a, we can also say $N \ge 99$.
 \end{enumerate}
 
 \section*{Problem 6.5}
+Based on my results, the answers to 6.3 and 6.4 were exactly the same. So in my opinion, it comes down to user preference. I personally prefer the MLE approach since it doesn't rely on a prior, which in many instances is a naive assumption that you would have one to begin with. That being said, when you actually do have a prior, it's incredibly helpful. So what I would prefer to use largely depends on the situation (i.e. given an actual prior or not). 
+
+The advantage of MLE is its simplicity and ease of use. Especially since in a lot of cases the MLE just turns out to be the mean. The disadvantage is the complement of the above: it's too simple and often just winds up being the mean. Using MLE can constrain you depending on the situation.
+
+The advantage of MAP lies entirely in the assumption of a prior, especially given that MLE and MAP are exactly the same thing if there is no prior at all. Having the prior allows us to affectively leverage previous information to influence our decision. The disadvantage is that often times we don't have a prior or we need to make naive assumptions to use one.
 
 \end{document} 
