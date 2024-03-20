@@ -108,17 +108,22 @@ Simplifying and matching with the form of a Beta distribution, we find our MAP e
 \[ \hat{p}_{MAP} = \frac{\sum_{i=1}^{N} {\sf{x}_i} + \alpha - 1}{N + \alpha + \beta - 2} \]
 
 \section*{Problem 6.3. (Correct prior)}
+  Here I copied down the code from the lecture notes, modified them into Python, and then ran through a bunch of iterations to find the below numbers:
   \begin{enumerate}[label=(\alph*)]
-    \item Under the correct prior, MLE converges around $N = 53$.
-    \item MAP converges within 0.01 faster than the MLE, around $N = 45$ 
+    \item Under the correct prior, MLE converges around $N = 115$.
+    \item MAP converges within 0.01 faster than the MLE, around $N = 85$ 
   \end{enumerate}
+
+  In this instance, MAP performs better since we have a really accurate prior.
 
 \section*{Problem 6.4. (Incorrect Prior)}
 
-\begin{enumerate}[label=(\alph*)]
-  \item For the incorrect prior, MLE converges at $N = 1$ 
-  \item MAP takes much longer, and finally converges around $N = 300$.
-\end{enumerate}
+  \begin{enumerate}[label=(\alph*)]
+    \item For the incorrect prior, MLE converges at $N = 115$. 
+    \item MAP takes much longer, and finally converges around $N = 550$.
+  \end{enumerate}
+
+  These results make sense for the MLE since it is not affected by the incorrect prior. So in both cases (incorrect and correct), it remains the same. However, our MAP estimate varies wildly. It performs better in 6.3 since our prior is really accurate. However, in the incorrect prior case, it is way off. 
 
 \section*{Problem 6.5}
 Based on my results, which approach you use is highly dependant on how accurate your prior is. In the case where it was dead nuts accurate, MAP converaged within our confidence interval much faster than the MLE. However, when it was WAY off, MLE got there much faster. So in my opinion, it's entirely dependant on the situation.
