@@ -107,33 +107,18 @@ Simplifying and matching with the form of a Beta distribution, we find our MAP e
 
 \[ \hat{p}_{MAP} = \frac{\sum_{i=1}^{N} {\sf{x}_i} + \alpha - 1}{N + \alpha + \beta - 2} \]
 
-\section*{Problem 6.3. (a) \& (b) (Correct prior)}
-I modified the code from the lecture notes to produce the following results. I'm assuming $\alpha = 7$ and $\beta = 2$ since we are given that it's skewed towards 1. As well, I have set $p^* = 0.99$
-\\
-\includegraphics[scale=0.45]{images_99/MAPvsMLE_3}
-\includegraphics[scale=0.45]{images_99/MAPvsMLE_5} \\
-\includegraphics[scale=0.45]{images_99/MAPvsMLE_8} 
-\includegraphics[scale=0.45]{images_99/MAPvsMLE_10} \\
-\includegraphics[scale=0.45]{images_99/MAPvsMLE_15}
-\includegraphics[scale=0.45]{images_99/MAPvsMLE_25} \\
+\section*{Problem 6.3. (Correct prior)}
+  \begin{enumerate}[label=(\alph*)]
+    \item Under the correct prior, MLE converges around $N = 53$.
+    \item MAP converges within 0.01 faster than the MLE, around $N = 45$ 
+  \end{enumerate}
 
-From these graphs, we can see that MAP converges within 0.01 much faster than the MLE, around $N = 5$ iterations whereas MLE gets there around $N = 20$ iterations.
+\section*{Problem 6.4. (Incorrect Prior)}
 
-\section*{Problem 6.4. (a) \& (b) (Incorrect Prior)}
-Using the same code as above, I set $p^* = 0.01$
-\\
-\includegraphics[scale=0.45]{images_01/MAPvsMLE_3}
-\includegraphics[scale=0.45]{images_01/MAPvsMLE_5} \\
-\includegraphics[scale=0.45]{images_01/MAPvsMLE_8} 
-\includegraphics[scale=0.45]{images_01/MAPvsMLE_10} \\
-\includegraphics[scale=0.45]{images_01/MAPvsMLE_15}
-\includegraphics[scale=0.45]{images_01/MAPvsMLE_25} \\
-\includegraphics[scale=0.45]{images_01/MAPvsMLE_50}
-\includegraphics[scale=0.45]{images_01/MAPvsMLE_70} \\
-\includegraphics[scale=0.45]{images_01/MAPvsMLE_80}
-\includegraphics[scale=0.45]{images_01/MAPvsMLE_99} \\
-
-Under the incorrect prior of $p^* = 0.01$, we see that the MLE converages to within 0.01 much faster, around $N = 15$ iterations. Whereas MAP converages around $N = 85$ iterations.
+\begin{enumerate}[label=(\alph*)]
+  \item For the incorrect prior, MLE converges at $N = 1$ 
+  \item MAP takes much longer, and finally converges around $N = 300$.
+\end{enumerate}
 
 \section*{Problem 6.5}
 Based on my results, which approach you use is highly dependant on how accurate your prior is. In the case where it was dead nuts accurate, MAP converaged within our confidence interval much faster than the MLE. However, when it was WAY off, MLE got there much faster. So in my opinion, it's entirely dependant on the situation.
