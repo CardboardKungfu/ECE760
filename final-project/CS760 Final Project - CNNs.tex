@@ -85,24 +85,8 @@
             \item Object Detection
             \item Medical Image Analysis
         \end{enumerate}
-
-\section{But What is a Convolution?}
-    \subsection {The Discrete Case}
-        Borrowing form the incredible 3Blue1Brown video example [1], let's say we want to roll a pair of dice and find the probability of seeing various different sums. You could visualize this as a grid where all six possibilities lie along the rows and columns, respectively: \\
-        \includegraphics[scale=0.4]{images/dice-grid.jpg} \\
-        To find this sum, we can just go along the diagonal and sum them up, giving us the total probability of finding that number. \\
-        
-        However, another way to illustrate this is by taking the six possibilities, listing them out, and flipping one set. This shows us all the possible combinations of the dice that sum to 7: \\
-        \includegraphics[scale=0.4]{images/flip.jpg} \\
-        To find the rest of the sums, all we need to do is slide the bottom row of dice all the way to the left and then sum it up. We can slide the dice over each time to find the next sum: \\
-        \includegraphics[scale=0.4]{images/slide.jpg} \\
-        We can also change the weights of each dice to more align with the idea of finding the probability. But either way, this idea of taking two sequences, flipping one, and then adding them up to create a new sequence is called a \textbf{convolution}. In the 1D discrete case, we can write the formula for convolution as:
-        \[(a * b)_n = \sum_{i,j} a_i \cdot b_i  \text{ such that } i + j = n\]
-        
-        Another good way to think of this is a moving average.
-
-        \subsection {The Continuous Case}
-
+    
+    In this paper, we won't go into the exact specifics of what a convolution is since it's slightly different in the discrete and continuous cases, as well as slightly different in a CNN context, but if you're really curious about it, 3Blue1Brown has some excellent videos visually explaining the mathematical concepts behind a convolution in his videos linked below [1] and [2].
 \section{NNs vs CNNs}
 
 \section{Understanding the Architecture}
