@@ -143,7 +143,7 @@
     \subsection{Output Layer}
         The output layer is the same as what you would find in a regular neural network. For a classification task, the outputs would be the confidence of that specific class. However, this layer is generalizable to the specific needs of whatever flavor of CNN you are implementing.
 
-    \subsection{Activation Functions \& Batch Normalization}
+    \subsection{Activation Functions}
         Like any neural network, CNNs use activation functions to introduce non-linearity into the system. Common activation functions include Tanh, ReLU, and the Sigmoid functions, as shown below:
 
         \textbf{Sigmoid}
@@ -154,6 +154,14 @@
 
         \textbf{Tanh}
         \[ tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}} = \frac{1 - e^{-2x}}{1 + e^{-2x}} \]
+
+    \subsection{Batch Normalization}
+        To quote from Younesi et al. [4]:
+
+        \begin{quote}
+            Batch Normalization is a technique that helps stabilize and accelerate the training of CNNs. It normalizes the activations of each layer by centering and scaling the values using the mean and variance of each mini-batch during training. This process reduces internal covariate shifts, making the optimization process smoother and enabling the use of higher learning rates. By normalizing activations, Batch Normalization allows for more aggressive learning rates, which leads to faster convergence and improved model generalization. Additionally, it acts as a regularizer, reducing the need for other regularization techniques like dropout. Overall, Batch Normalization has become a standard component in CNN architectures, contributing to faster training, improved model performance, and increased ease of hyperparameter tuning. Its widespread adoption has significantly contributed to the success of modern CNNs in various CV and NLP applications.
+        \end{quote}
+    
 
     \subsection{Feature Hierarchy}
     
