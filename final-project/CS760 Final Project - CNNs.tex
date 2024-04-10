@@ -80,11 +80,12 @@
 
 \section{Introduction}
     In recent years, Convolutional Neural Networks (CNNs) have emerged as a cornerstone technology in the field of deep learning, particularly in the domain of computer vision. CNNs are adept at extracting intricate patterns and features from spatially structured data. Some fields that benefit from CNNs include:
-        \begin{enumerate}
-            \item Image Classification
-            \item Object Detection
-            \item Medical Image Analysis
-        \end{enumerate}
+    
+    \begin{enumerate}
+        \item Image Classification
+        \item Object Detection
+        \item Medical Image Analysis
+    \end{enumerate}
     
     In this paper, we won't go into the exact specifics of what a convolution is since it's slightly different in the discrete and continuous cases, as well as slightly different in a CNN context, but if you're really curious about it, 3Blue1Brown has some excellent videos visually explaining the mathematical concepts behind a convolution in his videos linked below [1] and [2].
 
@@ -109,9 +110,11 @@
         
     \subsection{Convolution Layer}
         The convolution layer is the defining aspect of a CNN. To actually perform the convolution step means sliding the kernel across the image pixel by pixel, multiplying each element with it's overlapping counterpart, summing them up, and then dividing them by the kernel size (3x3 having a size of 9). The output is a single pixel in the output image/matrix. You scroll through the entire image performing the same operation until complete. This step is shown in the image below:
+        
         \begin{center}
             \includegraphics[scale=0.6]{images/kernel.jpg}
         \end{center}
+        
         Since the operative pixel is the center of the kernel, convolution runs into the issue of overlapping the image. So to avoid this, with a 3x3 kernel for example, a single pixel of padding is added to the image so that the kernel will fit in the first row/column.
 
         The general expression for a convolution is as follows:
@@ -122,22 +125,35 @@
 
     \subsection{Pooling Layer}
         The next step of the CNN is to perform pooling on the input image. There are many methods used for this, but the most common are max pooling and average pooling. For pooling, you again take a kernel (this one doesn't need to have odd dimensions) and scan it accross the image. However this time, instead of going pixel by pixel, you stride over the image. And for each step, in the max pooling case, you take the maximum value in the overlapping kernel region:
+        
         \begin{center}
             \includegraphics{images/maxpool.png}
         \end{center}
+        
         In the case of average pooling, the process is exactly the same excpet instead of taking the maximum, you average the values out and use that. Often times, you'll see a kernel size of 2x2 and a "stride" of 2 for pooling. This means that you'll examine a 2x2 area, choose the maximum (or average) of that area, and then return it. After that, you stride the kernel over two steps and repeat over the entire image. This has two main functions: down sampling and shift-invariance
+        
         \begin{enumerate}
             \item Down Sampling: This step reduces the overall size of your data while also preserving the main features from the previous layers. So moving forward, you are left with a smaller, more informationally dense input that gets propogated into further layers. This leads to more computational efficiency.
             \item Shift-Invariance: This effect is slightly less stated, but still important. If, for example, the kernel's job was to detect whiskers on a cat, downsampling makes the convolution step slightly more invariant to shifts in the image. Since pooling carries forward important features and reduces the area, you get the same feature but are less concerned with where in the image that feature was found. This effect is marginal, but still leads to more robust classification.
         \end{enumerate}
 
-    \subsection{Flattening Layer}
-        The flatten layer appears after the convolutional and pooling layers. It acts as a bridge between the convolutional/pooling layers, which extract spatial features, and the fully connected layers, which perform classification or regression tasks.
+    \subsection{Flattening \& Fully Connected Layer}
+        The flattening step appears after the convolutional and pooling layers. It acts as a bridge between the convolutional/pooling layers, which extract spatial features, and the fully connected layers, which perform classification or regression tasks. After flattening, a fully connected layer is hooked up to the output layer with it's own weights and biases.
         
-    \subsection{Fully Connected Layer}
-        
-
     \subsection{Output Layer}
+        The output layer is the same as what you would find in a regular neural network. For a classification task, the outputs would be the confidence of that specific class. However, this layer is generalizable to the specific needs of whatever flavor of CNN you are implementing.
+
+    \subsection{Activation Functions \& Batch Normalization}
+        Like any neural network, CNNs use activation functions to introduce non-linearity into the system. Common activation functions include Tanh, ReLU, and the Sigmoid functions, as shown below:
+
+        \textbf{Sigmoid}
+        \[ \sigma(z) = \frac{1} {1 + e^{-z}} \]
+
+        \textbf{ReLU}
+        \[ Relu(z) = max(0, z) \]
+
+        \textbf{Tanh}
+        \[ tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}} = \frac{1 - e^{-2x}}{1 + e^{-2x}} \]
 
     \subsection{Feature Hierarchy}
     
