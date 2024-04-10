@@ -87,11 +87,36 @@
         \end{enumerate}
     
     In this paper, we won't go into the exact specifics of what a convolution is since it's slightly different in the discrete and continuous cases, as well as slightly different in a CNN context, but if you're really curious about it, 3Blue1Brown has some excellent videos visually explaining the mathematical concepts behind a convolution in his videos linked below [1] and [2].
-\section{NNs vs CNNs}
 
 \section{Understanding the Architecture}
-    \subsection {Layers}
-    \subsection {Feature Hierarchy}
+    \subsection{NNs vs CNNs}
+        CNNs and Neural Networks are similar in many ways, but also have drastically different architectures. From a high level, the classic neural network is shown as an input layer of neurons, a hidden layer, and an output layer, shown below:
+        \begin{center}
+            \includegraphics[scale=0.6]{images/NN.jpg}    
+        \end{center}
+
+        However, the architecture of a convolution neural network looks much different. There isn't one right way to structure it, but typically a CNN will have the input, a few convolution and pooling layers, a flattening step, and then finally a fully connected layer that leads to an output, as shown below:
+        \begin{center}
+            \includegraphics[scale=0.6]{images/CNN.jpg}
+        \end{center}
+        How you structure your CNN is an area of active research today. However, the above is a completely valid example.
+
+    \subsection{Kernels}
+        Fundamental to the idea of convolutions are kernels. In the 2D image processing case, a kernel often takes the form of a 3x3 grid of numbers that are "convolved" with the image. This convolution step means sliding the kernel across the image pixel by pixel, multiplying each element with it's overlapping counterpart, summing them up, and then dividing them by the kernel size (3x3 having a size of 9). The output is a single pixel in the output image/matrix. You scroll through the entire image performing the same operation until complete. Since the operative pixel is the center of the kernel, convolution runs into the issue of overlapping the image. So to avoid this, with a 3x3 kernel for example, a single pixel of padding is added to the image so that the kernel will fit in the first row/column.
+        \begin{center}
+            \includegraphics[scale=0.6]{images/kernel.jpg}
+        \end{center}
+    \subsection{Layers}
+        \begin{enumerate}[label=(\alph*)]
+            \item Convolution Layer
+            The convolution layer is the most fundamental aspect of a CNN.
+            \item Pooling Layer
+            \item Flattening Layer
+            \item Fully Connected Layer
+            \item Output Layer                
+        \end{enumerate}
+
+    \subsection{Feature Hierarchy}
     
 \section{Advanced CNN Architectures}
     \begin{enumerate}[label=(\alph*)]
@@ -121,4 +146,4 @@
     \url{https://arxiv.org/abs/2402.15490}
 
 
-\end{document} 
+\end{document}
