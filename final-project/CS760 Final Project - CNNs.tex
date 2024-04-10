@@ -90,26 +90,35 @@
 
 \section{Understanding the Architecture}
     \subsection{NNs vs CNNs}
-        Neural Networks and CNNs are similar in many ways, but also have drastically different architectures. From a high level, the classic neural network example has an input layer, a hidden layer, and an output layer, shown below:
+        Neural Networks and CNNs are similar in many ways, but also have drastically different architectures. From a high level, the classic neural network example has an input layer, hidden layers, and an output layer, shown below:
+        
         \begin{center}
             \includegraphics[scale=0.6]{images/NN.jpg}    
         \end{center}
-
-        However, the architecture of a convolution neural network looks much different. There isn't one right way to structure it, but typically a CNN will have the input, a few convolution and pooling layers, a flattening step, and then finally a fully connected layer that leads to an output, as shown below:
+        
+        However, the architecture of a convolution neural network looks much different. There isn't one right way to structure it, but typically a CNN will have the input, a few convolution and pooling layers, a flattening step, and then finally a fully connected layer that leads to an output, as shown below. Notably, how you structure your CNN is an area of active research today.
+        
         \begin{center}
             \includegraphics[scale=0.6]{images/CNN.jpg}
         \end{center}
-        How you structure your CNN is an area of active research today. However, the above is a completely valid example and performs well for the image classification task.
+        
+        Another important distinction between the two is that for a CNN, the weights that we are trying to learn are the kernels themselves, along with a bias term.
 
     \subsection{Kernels}
-        Fundamental to the idea of convolutions are kernels. In the context of CNNs, the words kernel and filter are interchangeable, but for this paper we'll stick with kernel. In the 2D image processing case, a kernel takes the form of a square grid of odd dimensions. So for example 3x3, 5x5, or 9x9. These days, you'll almost exclusively see kernels of dimensions 3x3 or even 1x1. Kernels are odd so that they have a center. The reason for 3x3 goes back to 2012 when the ImageNet competition was in full swing. Briefly put, ImageNet was a challenge to see who could most efficiently and accurately classifiy a datset of more than 14 million hand-annotated images into roughly 20,000 categaroies. In 2012, a model called AlexNet swept the competition outperforming all others by significant margins. AlexNet pioneered CNNs for the image processing task. One of the reason's for it's success was it's heavy use of 3x3 kernels. However, it wasn't until the next year when an optimized version of AlexNet, called ZFNet, took it a step further and used 3x3 kernels in almost every layer. Nowadays, 3x3 is typically the go to kernel size with some exception.
-    
+        Fundamental to the idea of convolutions are kernels. In the context of CNNs, the words kernel and filter are interchangeable, but for this paper we'll stick with kernel. In the 2D image processing case, a kernel takes the form of a square grid of odd dimensions. So for example 3x3, 5x5, or 9x9. These days, you'll almost exclusively see kernels of dimensions 3x3 or even 1x1. Kernels are odd so that they have a center. The reason for 3x3 goes back to 2012 when the ImageNet competition was in full swing. Briefly put, ImageNet was a challenge to see who could most efficiently and accurately classifiy a datset of more than 14 million hand-annotated images into roughly 20,000 categaroies. In 2012, a model called AlexNet swept the competition outperforming all others by significant margins. AlexNet pioneered CNNs for the image processing task. One of the reason's for it's success was it's heavy use of 3x3 kernels. However, it wasn't until the next year when an optimized version of AlexNet, called ZFNet, took it a step further and used 3x3 kernels in almost every layer. There are many different ways to determine your kernel size, but starting out with 3x3 is a safe bet.
+        
     \subsection{Convolution Layer}
         The convolution layer is the defining aspect of a CNN. To actually perform the convolution step means sliding the kernel across the image pixel by pixel, multiplying each element with it's overlapping counterpart, summing them up, and then dividing them by the kernel size (3x3 having a size of 9). The output is a single pixel in the output image/matrix. You scroll through the entire image performing the same operation until complete. This step is shown in the image below:
         \begin{center}
             \includegraphics[scale=0.6]{images/kernel.jpg}
         \end{center}
         Since the operative pixel is the center of the kernel, convolution runs into the issue of overlapping the image. So to avoid this, with a 3x3 kernel for example, a single pixel of padding is added to the image so that the kernel will fit in the first row/column.
+
+        The general expression for a convolution is as follows:
+        \[ g(x, y) = \omega \ast f(x, y) = \sum_{i=-a}^{a} \sum_{j=-b}^{b} w(i, j) * f(x - i, y - j) \]
+        where $g(x, y)$ is the filtered image, $f(x, y)$ is the original image, and $\omega$ is the kernel.
+
+        One of the biggest advantages of a convolution is that when applied to structured data, it can take advantage of the spatial relationship between said data. Whereas normally that relationship would be lost when flattened out and pumped through a regular neural net.
 
     \subsection{Pooling Layer}
         The next step of the CNN is to perform pooling on the input image. There are many methods used for this, but the most common are max pooling and average pooling. For pooling, you again take a kernel (this one doesn't need to have odd dimensions) and scan it accross the image. However this time, instead of going pixel by pixel, you stride over the image. And for each step, in the max pooling case, you take the maximum value in the overlapping kernel region:
@@ -123,8 +132,10 @@
         \end{enumerate}
 
     \subsection{Flattening Layer}
-
+        The flatten layer appears after the convolutional and pooling layers. It acts as a bridge between the convolutional/pooling layers, which extract spatial features, and the fully connected layers, which perform classification or regression tasks.
+        
     \subsection{Fully Connected Layer}
+        
 
     \subsection{Output Layer}
 
