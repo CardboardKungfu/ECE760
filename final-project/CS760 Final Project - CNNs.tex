@@ -79,13 +79,7 @@
 % \end{abstract}
 
 \section{Introduction}
-    In recent years, Convolutional Neural Networks (CNNs) have emerged as a cornerstone technology in the field of deep learning, particularly in the domain of computer vision. CNNs are adept at extracting intricate patterns and features from spatially structured data. Some fields that benefit from CNNs include:
-    
-    \begin{enumerate}
-        \item Image Classification
-        \item Object Detection
-        \item Medical Image Analysis
-    \end{enumerate}
+    In recent years, Convolutional Neural Networks (CNNs) have emerged as a cornerstone technology in the field of deep learning, particularly in the domain of computer vision. CNNs are adept at extracting intricate patterns and features from spatially structured data. Some fields that benefit from CNNs include image classification, object detection, and medical image analysis.
     
     In this paper, we won't go into the exact specifics of what a convolution is since it's slightly different in the discrete and continuous cases, as well as slightly different in a CNN context, but if you're really curious about it, 3Blue1Brown has some excellent videos visually explaining the mathematical concepts behind a convolution in his videos linked below [1] and [2].
 
@@ -94,13 +88,13 @@
         Neural Networks and CNNs are similar in many ways, but also have drastically different architectures. From a high level, the classic neural network example has an input layer, hidden layers, and an output layer, shown below:
         
         \begin{center}
-            \includegraphics[scale=0.6]{images/NN.jpg}    
+            \includegraphics[scale=0.5]{images/NN.jpg}    
         \end{center}
         
         However, the architecture of a convolution neural network looks much different. There isn't one right way to structure it, but typically a CNN will have the input, a few convolution and pooling layers, a flattening step, and then finally a fully connected layer that leads to an output, as shown below. Notably, how you structure your CNN is an area of active research today.
         
         \begin{center}
-            \includegraphics[scale=0.6]{images/CNN.jpg}
+            \includegraphics[scale=0.3]{images/CNN.jpg}
         \end{center}
         
         Another important distinction between the two is that for a CNN, the weights that we are trying to learn are the kernels themselves, along with a bias term.
@@ -124,7 +118,7 @@
         One of the biggest advantages of a convolution is that when applied to structured data, it can take advantage of the spatial relationship between said data. Whereas normally that relationship would be lost when flattened out and pumped through a regular neural net.
 
     \subsection{Pooling Layer}
-        The next step of the CNN is to perform pooling on the input image. There are many methods used for this, but the most common are max pooling and average pooling. For pooling, you again take a kernel (this one doesn't need to have odd dimensions) and scan it accross the image. However this time, instead of going pixel by pixel, you stride over the image. And for each step, in the max pooling case, you take the maximum value in the overlapping kernel region:
+        The next step of the CNN is to perform pooling on the input image. There are many methods used for this, but the most common are max pooling and average pooling. For pooling, you again take a kernel (this one doesn't need to have odd dimensions) and scan it across the image. However this time, instead of going pixel by pixel, you stride over the image. And for each step, in the max pooling case, you take the maximum value in the overlapping kernel region:
         
         \begin{center}
             \includegraphics{images/maxpool.png}
@@ -133,8 +127,8 @@
         In the case of average pooling, the process is exactly the same excpet instead of taking the maximum, you average the values out and use that. Often times, you'll see a kernel size of 2x2 and a "stride" of 2 for pooling. This means that you'll examine a 2x2 area, choose the maximum (or average) of that area, and then return it. After that, you stride the kernel over two steps and repeat over the entire image. This has two main functions: down sampling and shift-invariance
         
         \begin{enumerate}
-            \item Down Sampling: This step reduces the overall size of your data while also preserving the main features from the previous layers. So moving forward, you are left with a smaller, more informationally dense input that gets propogated into further layers. This leads to more computational efficiency.
-            \item Shift-Invariance: This effect is slightly less stated, but still important. If, for example, the kernel's job was to detect whiskers on a cat, downsampling makes the convolution step slightly more invariant to shifts in the image. Since pooling carries forward important features and reduces the area, you get the same feature but are less concerned with where in the image that feature was found. This effect is marginal, but still leads to more robust classification.
+            \item Down Sampling: This step reduces the overall size of your data while also preserving the main features from the previous layers. So moving forward, you are left with a smaller, more informationally dense input that gets propagated into further layers. This leads to more computational efficiency.
+            \item Shift-Invariance: This effect is slightly less stated, but still important. If, for example, the kernel's job was to detect whiskers on a cat, down-sampling makes the convolution step slightly more invariant to shifts in the image. Since pooling carries forward important features and reduces the area, you get the same feature but are less concerned with where in the image that feature was found. This effect is marginal, but still leads to more robust classification.
         \end{enumerate}
 
     \subsection{Flattening \& Fully Connected Layer}
@@ -161,23 +155,42 @@
         \begin{quote}
             Batch Normalization is a technique that helps stabilize and accelerate the training of CNNs. It normalizes the activations of each layer by centering and scaling the values using the mean and variance of each mini-batch during training. This process reduces internal covariate shifts, making the optimization process smoother and enabling the use of higher learning rates. By normalizing activations, Batch Normalization allows for more aggressive learning rates, which leads to faster convergence and improved model generalization. Additionally, it acts as a regularizer, reducing the need for other regularization techniques like dropout. Overall, Batch Normalization has become a standard component in CNN architectures, contributing to faster training, improved model performance, and increased ease of hyperparameter tuning. Its widespread adoption has significantly contributed to the success of modern CNNs in various CV and NLP applications.
         \end{quote}
-    
 
-    \subsection{Feature Hierarchy}
-    
+    \subsection{Backpropagation}
+        Unlike traditional neural networks, both the forward pass and the backprop pass of a convolutional layer are convolutions [5].
+
+        I don't want to go into further detail as my explanation would pale in comparison to Pavithra Solai's explanation in the article linked at [5] below. If you're interested in an excellent visual and intuitive understanding of CNN backprop, I highly recommend it.
+        
 \section{Advanced CNN Architectures}
-    \begin{enumerate}[label=(\alph*)]
-        \item VGGNet
-        \item ResNet
-        \item Inception Network
-    \end{enumerate}
-    
+    \subsection{VGGNet}
+        \begin{center}
+            \includegraphics[scale=0.4]{images/VGG.jpg}
+        \end{center}
+
+    \subsection{GoogleNet (Inception Net)}
+        \begin{center}
+            \includegraphics[scale=0.35]{images/GoogleNet.png}
+        \end{center}
+
+    \subsection{ResNet}
+        \begin{center}
+            \includegraphics[scale=0.35]{images/ResNet.png}
+        \end{center}
+
 \section{Future Directions and Trends}
-    \begin{enumerate}[label=(\alph*)]
-        \item TO-DO
-        \item TO-DO
-        \item TO-DO
-    \end{enumerate}
+    \subsection{Accuracy}
+        \begin{center}
+            \includegraphics[scale=0.35]{images/accuracy.png}
+        \end{center}
+
+    \subsection{Potential Improvements}
+        \begin{itemize}
+            \item \textbf{Efficiency and Optimization}: Streamline CNNs to require fewer computational resources to enable deployment on low-power devices.
+            \item \textbf{Robustness and Generalization}: Increase CNNs’ resilience to adversarial attacks and their ability to perform well on unseen data.
+            \item \textbf{Transfer Learning and Few-Shot Learning}: Adapt CNNs to new tasks with minimal data through methods like transfer and few-shot learning.
+            \item \textbf{Interpretability and Explainability}: Make CNN decisions transparent and understandable to ensure trustworthiness and compliance in critical applications.
+        \end{itemize}
+    
 
 \section{Resources}
     \textbf{[1]} 3Blue1Brown - But What is a Convolution? \\
@@ -191,6 +204,9 @@
     
     \textbf{[4]} Younesi, A., Ansari, M., Fazli, M. A., Ejlali, A., Shafique, M., \& Henkel, J. (2024). A Comprehensive Survey of Convolutions in Deep Learning: Applications, Challenges, and Future Trends. arXiv preprint arXiv:2402.15490 \\
     \url{https://arxiv.org/abs/2402.15490}
+
+    \textbf{[5]} Pavithra Solai - Convolutions and Backpropagations \\
+    \url{https://pavisj.medium.com/convolutions-and-backpropagations-46026a8f5d2c}
 
 
 \end{document}
