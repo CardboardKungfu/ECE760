@@ -1,5 +1,5 @@
 \documentclass{article}
-\setlength{\oddsidemargin}{0.25 in}
+\setlength{\oddsidemargin}{0 in}
 \setlength{\evensidemargin}{-0.25 in}
 \setlength{\topmargin}{-0.6 in}
 \setlength{\textwidth}{6.5 in}
@@ -159,40 +159,78 @@
         
 \section{Advanced CNN Architectures}
     \subsection{VGGNet}
-        This is VGG16 (where 16 refers to number of layers with tunable parameters: conv and fc)
+        In traditional neural networks, increasing the number of layers to deepen the network allows for learning more complex features, which is crucial for advanced image recognition tasks. VGG, which was developed by the Visual Graphics Group, pushed this concept to new heights by significantly increasing network depth using an architecture with up to 19 layers. This  helped establish new benchmarks in accuracy. However, such deep networks also introduced some obvious challenges, including increased computational demands and a higher propensity for overfitting, requiring innovations in training and regularization techniques.
+        
+        VGG16's architecture is characterized by its uniformity. It exclusively uses 3x3 convolutions with a stride of 1 and max pooling of 2x2 with a stride of 2. Such simplicity for ease of understanding and implementation, and its depth, enables the learning of a rich hierarchy of features. It has been used as a baseline for many computer vision tasks and is still used as a feature extractor for many other types of problems beyond classification.
+
+        The convolutional layers, depicted as blue blocks in our diagram, apply filters to its input. The number of filters grow as we progress deeper into the network, from 64 in the first layers to 512 in the deeper layers. The notation 224x224x64, for example, represents the spatial dimensions of the feature map followed by the depth, indicating the number of filters.
+
+        After each convolution, we apply the ReLU activation function to introduce non-linearity, allowing the network to learn complex patterns.
+
+        Next, the max pooling layers, shown in red, reduce the spatial dimensions by half—importantly decreasing the feature map size to manage computational resources while retaining critical features. Each pool operates over a 2x2 pixel window with a stride of 2.
+
+        As we approach the network's end, the spatial feature maps are flattened, leading to fully connected layers. Finally, the output layer, which connects the last fully connected layer to a 1000-unit layer, corresponds to the number of classes in ImageNet. Here, we use a softmax function to calculate a probability distribution over class labels, defined mathematically as \( P(y = i \mid \mathbf{x}) = \frac{e^{x_i}}{\sum_{j} e^{x_j}} \), where \( x_i \) is the input to a neuron corresponding to class i.
         
         \begin{center}
             \includegraphics[scale=0.4]{images/VGG.jpg}
         \end{center}
-
-    \subsection{GoogleNet (Inception Net)}
-        Here we have GoogleNet also known as the InceptionNet. It offers increased efficiency by Incorporating "inception modules" that perform multiple convolutions of different sizes simultaneously, creating a kind of "network within a network", greatly reducing the number of parameters compared to VGG. Each inception module is constructed to have parallel convolutions to capture information at various scales. It also offers dimension reduction by applying smaller convolutions to decrease computational load before larger convolutions. And finally it employs auxiliary classifiers during training to inject gradients at lower layers to combat vanishing gradients.
-
+        
+    \subsection{GoogleNet (InceptionNet)}
+        
+        While deepening the architecture of neural networks theoretically enhances their ability to learn more complex features, it also complicates the training process and increases the computational load. GoogleNet, or InceptionNet, addresses these challenges by introducing a novel architecture known as the 'inception module'. This module allows the network to look at the same input through multiple scales simultaneously, and significantly reduces the parameter count while maintaining, if not increasing, the depth and width of the network. This approach not only preserves the capacity to learn complex features but does so with enhanced efficiency, mitigating the issues of computational expense and overfitting seen in simpler deep networks.
+        
         \begin{center}
             \includegraphics[scale=0.35]{images/GoogleNet.png}
         \end{center}
+        
+        This increased efficiency facilitated by the inception modules is achieved by performing multiple convolutions of different sizes simultaneously, creating a kind of "network within a network", greatly reducing the number of parameters compared to VGG. Finally it employs auxiliary classifiers during training to inject gradients at lower layers to combat vanishing gradients.
 
-    \subsection{ResNet}
-        Next we have ResNet 18 which uses "residual connections" to allow gradients to bypass layers, which helps in training very deep networks by alleviating the vanishing gradient problem. The skip connections perform identity mapping, and their outputs are added to the outputs of the stacked layers. They can support deeper architectures as they can be built with a much greater depth than previous models while still maintaining trainability.  (e.g., ResNet-50, ResNet-101, ResNet-152) Finally they offer reduced complexity. Despite being deeper, they tend to have fewer parameters and are less complex than VGG due to the lack of fully connected layers.
+        \begin{center}
+            \includegraphics[scale=0.2]{images/inceptionmodule.png}
+        \end{center}
+        
+        The Inception module consists of multiple filter operations happening simultaneously. It combines 1x1, 3x3, and 5x5 convolutional filters along with 3x3 max pooling. This multi-scale processing allows the network to capture details at various extents from the same input level.
+
+        Crucially, 1x1 convolutions used within the module are for dimension reduction before larger convolutions. This reduces the computational cost without losing critical information, serving both as bottleneck layers that compress the input features and as network regularization to prevent overfitting.
+
+        After processing through different paths, all outputs are concatenated along the depth dimension. This concatenated volume feeds into the next layer, providing a rich, combined feature set that integrates diverse patterns and scales detected within the input.
+        
+        Meanwhile, auxiliary classifiers are additional classifiers added to intermediate layers of the network. Their role is to provide an additional training signal from these intermediate layers directly, rather than relying solely on the gradient signal propagated from the final output layer.
+ 
+    \subsection{ResNet (Residual Network)}
+        Here we have ResNet which uses "residual connections" to allow gradients to bypass layers, which helps in training very deep networks by alleviating the vanishing gradient problem. The skip connections perform identity mapping, and their outputs are added to the outputs of the stacked layers. They can support deeper architectures as they can be built with a much greater depth than previous models while still maintaining trainability.  (e.g., ResNet-50, ResNet-101, ResNet-152) Finally, they offer reduced complexity. Despite being deeper, they tend to have fewer parameters and are less complex than VGG due to the lack of fully connected layers.
 
         \begin{center}
             \includegraphics[scale=0.35]{images/ResNet.png}
         \end{center}
 
+        The above image of ResNet 18 depicts these components in a sequence that corresponds to how data flows through the network: starting from the input, passing through various convolutional and pooling layers, and eventually leading to the output where a prediction is made. The "shortcut" connections are what make this network "residual"; they skip one or more layers and help preserve the gradient signal throughout the network.
+
+        \begin{center}
+            \includegraphics[scale=0.35]{images/resnet-block.png}
+        \end{center}
+
+        Convolutional layers are the core building blocks of ResNet. These layers are represented as rectangular blocks, each labeled with the filter size, such as '3x3', and the number of filters, like 64 or 128. They are the primary building blocks of ResNet, applying various filters to extract features like edges, textures, and shapes.
+
+        As mentioned above, the defining features of this architecture are the curved arrows that bypass one or more layers. They directly connect the input of a layer block to its output, facilitating deeper networks by allowing gradients to flow freely through the architecture.
+
+        All convolutions are followed by batch normalisation which are then followed by ReLu activation functions. The final average pooling and fully connected layer lead to the softmax that outputs a probability distribution over the classes.
+        
 \section{Trends \& Future Directions}
     \subsection{Accuracy}
-        VGG showed that depth matters for feature hierarchy. InceptionNet introduced computational efficiency with parallel convolutions and ResNet enabled the training of even deeper networks through skip connections for better classification performance. As we can see, CNNs have become increasingly accurate over the years and are currently more accurate than humans, who are estimated to have around 5\% error rate. Since 100\% accuracy is not realistic, what else can be improved?
     
         \begin{center}
-            \includegraphics[scale=0.35]{images/accuracy.png}
+                \includegraphics[scale=0.3]{images/accuracy.png}
         \end{center}
+        
+        VGG showed that depth matters for feature hierarchy. InceptionNet introduced computational efficiency with parallel convolutions and ResNet enabled the training of even deeper networks through skip connections for better classification performance. As we can see, CNNs have become increasingly accurate over the years and are currently more accurate than humans, who are estimated to have around 5\% error rate. Since 100\% accuracy is not realistic, what else can be improved?        
 
     \subsection{Potential Improvements}
         \begin{itemize}
             \item \textbf{Efficiency and Optimization}: Streamline CNNs to require fewer computational resources to enable deployment on low-power, edge computing devices.
             \item \textbf{Robustness and Generalization}: Increase CNN resilience to adversarial attacks and their ability to perform well on unseen and noisy data.
             \item \textbf{Transfer Learning and Few-Shot Learning}: Adapt CNNs to new tasks with minimal data through methods like transfer and few-shot learning.
-            \item \textbf{Interpretability and Explainability}: Currently CNNs are like back boxes. We have to make CNN decisions transparent and understandable to ensure trustworthiness and compliance in critical applications in industries like the automotive and the medical industry.
+            \item \textbf{Interpretability and Explainability}: Currently CNNs operate like back boxes. We have to make CNN decisions transparent and understandable to ensure trustworthiness and compliance in critical applications in industries like the automotive and the medical industry.
         \end{itemize}
     
 \section{Resources}
@@ -210,5 +248,14 @@
 
     \textbf{[5]} Pavithra Solai - Convolutions and Backpropagations \\
     \url{https://pavisj.medium.com/convolutions-and-backpropagations-46026a8f5d2c}
+
+     \textbf{[6]} Karen Simonyan and Andrew Zisserman. (2015). Very Deep Convolutional Networks for Large-Scale Image Recognition. arXiv preprint arXiv:1409.1556. \url{https://arxiv.org/abs/1409.1556}
+    
+    \textbf{[7]} Christian Szegedy, Wei Liu, Yangqing Jia, Pierre Sermanet, Scott Reed, Dragomir Anguelov, Dumitru Erhan, Vincent Vanhoucke, \& Andrew Rabinovich. (2014). Going Deeper with Convolutions. arXiv preprint arXiv:1409.4842. \url{https://arxiv.org/abs/1409.4842}
+
+    \textbf{[8]} Kaiming He, Xiangyu Zhang, Shaoqing Ren, \& Jian Sun. (2015). Deep Residual Learning for Image Recognition. arXiv preprint arXiv:1512.03385. \url{https://arxiv.org/abs/1512.03385}
+
+    \textbf{[9]} Gordon Cooper - New Vision Technologies For Real-World Applications \\
+    \url{https://semiengineering.com/new-vision-technologies-for-real-world-applications/}
 
 \end{document}
